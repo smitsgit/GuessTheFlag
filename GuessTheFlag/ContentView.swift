@@ -16,11 +16,15 @@ struct ContentView: View {
 
     var body: some View {
        ZStack {
-           Color.blue.edgesIgnoringSafeArea(.all)
+           LinearGradient(gradient: Gradient(colors: [.blue, .black]), startPoint: .top, endPoint: .bottom)
+                   .edgesIgnoringSafeArea(.all)
            VStack(spacing: 30) {
                VStack {
                    Text("Tap the flag of").foregroundColor(.white)
-                   Text(countries[chosenCountry]).foregroundColor(.white)
+                   Text(countries[chosenCountry])
+                           .foregroundColor(.white)
+                           .font(.largeTitle)
+                           .fontWeight(.bold)
                }
 
                ForEach(0..<3) { element in
@@ -28,7 +32,11 @@ struct ContentView: View {
                        print("Button tapped \(element)")
                        self.flagTapped(element)
                    }) {
-                       Image(self.countries[element]).renderingMode(.original)
+                       Image(self.countries[element])
+                               .renderingMode(.original)
+                               .clipShape(Capsule())
+                               .overlay(Capsule().stroke(Color.black, lineWidth: 1))
+                               .shadow(color: .black, radius: 2)
                    }
                }
                Spacer()
